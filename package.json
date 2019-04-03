@@ -8,14 +8,15 @@
     "postinstall": "npm install -g babel-cli@7.0.0-beta.3 cross-env@5.0.5 webpack@3.6.0",
     "start": "npm run start-prod",
     "start-dev": "cross-env NODE_ENV=development babel-node server --useServerRender=true --useLiveData=false",
-    "start-prod": "npm run build && cross-env NODE_ENV=production babel-node server --useServerRender=true --useLiveData=false"
+    "start-prod": "npm run build && cross-env NODE_ENV=production babel-node server --useServerRender=true --useLiveData=false",
+    "start-dev-live": "cross-env NODE_ENV=development babel-node server --useServerRender=true --useLiveData=true"
   },
   "keywords": [],
-  "author": "Daniel Stern (Code Whisperer)",
+  "author": "Josh York",
   "license": "MIT",
   "dependencies": {
     "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.4.3",
     "@babel/node": "^7.2.2",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "@babel/plugin-transform-regenerator": "^7.0.0",
@@ -49,5 +50,8 @@
     "webpack": "^3.6.0",
     "webpack-dev-middleware": "^1.12.0",
     "webpack-hot-middleware": "^2.19.1"
+  },
+  "devDependencies": {
+ 
   }
 }
