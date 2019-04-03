@@ -1,14 +1,19 @@
-import { put, take} from 'redux-saga/effects';
-
+import { put, take } from 'redux-saga/effects'
 import fetch from 'isomorphic-fetch';
-
-export default function* () {
+/**
+ * Fetch questions saga gets a list of all new
+ * questions in response to a particular view being loaded
+ */
+export default function * () {
     while (true) {
-        yield take('REQUEST_FETCH_QUESTIONS');
+        /**
+         * Wait for a request to fetch questions, then fetch data from the API and notify the application
+         * that new questions have been loaded.
+         */
+        yield take(`REQUEST_FETCH_QUESTIONS`);
         const raw = yield fetch('/api/questions');
         const json = yield raw.json();
         const questions = json.items;
-        console.log("got questions..." ,questions);
-        yield put({type:`FETCHED_QUESTIONS`, questions});
+        yield put({type:`FETCHED_QUESTIONS`,questions});
     }
 }
