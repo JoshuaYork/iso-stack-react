@@ -9,9 +9,9 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux'
 import getStore from './getStore';
-import createHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 
-const history = createHistory();
+const history = createBrowserHistory();
 const store = getStore(history);
 
 if (module.hot) {
