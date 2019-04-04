@@ -5,6 +5,8 @@ import path from 'path';
  * Development webpack config designed to be loaded by express development server
  */
 export default {
+    //webpack enabled defaults for development
+    mode: "development",
     /**
      * The scripts in entry are combined in order to create our bundle
      */
@@ -64,7 +66,7 @@ export default {
         extensions: ['.js', '.json', '.jsx'],
     },
     module: {
-        loaders: [{
+        rules: [{
             /**
              * Babel loader is used for any JS or JSX files in the src directory
              */
