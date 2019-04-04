@@ -31,5 +31,8 @@ export const questions = (state = [], {
     if (type === `FETCHED_QUESTIONS`) {
         state = unionWith(state, questions, questionEquality);
     }
+    if (type== 'FETCHED_TAGGED_QUESTIONS') {
+        state = questions;
+    }
     return state;
 };

@@ -8,7 +8,7 @@ import { delay } from "redux-saga";
 import { renderToString } from "react-dom/server";
 import React from "react";
 import { argv } from "optimist";
-import { questions, question } from "../data/api-real-url";
+import { questions, question, tagQuestions } from "../data/api-real-url";
 import { get } from "request-promise";
 import { ConnectedRouter } from "react-router-redux";
 import getStore from "../src/getStore";
@@ -135,6 +135,28 @@ function* getQuestion(question_id) {
   return data;
 }
 
+function* getTaggedQuestions(tag) {
+  let data;
+  if (useLiveData) {
+    /**
+     * If live data is used, contact the external API
+     */
+    data = yield get(tagQuestions(tag), { gzip: true });
+  } else {
+    /**
+     * If live data is not used, read the mock questions file
+     */
+    console.log("test", tag);
+    data = yield getQuestions();
+    data = data.items.filter(question => question.tags.includes(tag));
+  }
+
+  /**
+   * Parse the data and return it
+   */
+  return JSON.parse(data);
+}
+
 /**
  * Creates an api route localhost:3000/api/questions, which returns a list of questions
  * using the getQuestions utility
@@ -162,9 +184,23 @@ app.get("/api/questions/:id", function*(req, res) {
 });
 
 /**
+ * Creates an api route localhost:3000/api/tag, which returns a list of questions
+ * using the getTaggedQuestions utility
+ */
+app.get("/api/tag/:tag", function*(req, res) {
+  const data = yield getTaggedQuestions(req.params.tag);
+  /**
+   * Insert a small delay here so that the async/hot-reloading aspects of the application are
+   * more obvious. You are strongly encouraged to remove the delay for production.
+   */
+  yield delay(150);
+  res.json(data);
+});
+
+/**
  * Create a route that triggers only when one of the two view URLS are accessed
  */
-app.get(["/", "/questions/:id"], function*(req, res) {
+app.get(["/", "/questions/:id", "/tag/:tag"], function*(req, res) {
   /**
    * Read the raw index HTML file
    */
@@ -204,6 +240,18 @@ app.get(["/", "/questions/:id"], function*(req, res) {
     const response = yield getQuestion(question_id);
     const questionDetails = response.items[0];
     initialState.questions = [{ ...questionDetails, question_id }];
+  } else if (req.params.tag) {
+    /**
+     * If there is req.params.tag, this must be the tagged questions route.
+     * You are encouraged to create more robust conditions if you add more routes
+     */
+    const tag = req.params.tag;
+    /**
+     * Get the question that corresponds to the request, and preload the initial state with it
+     */
+    const response = yield getTaggedQuestions(tag);
+    const questions = response.items[0];
+    initialState.questions = questions;
   } else {
     /**
      * Otherwise, we are on the "new questions view", so preload the state with all the new questions (not including their bodies or answers)

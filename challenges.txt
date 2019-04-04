@@ -1,0 +1,27 @@
+#1 Tags Route
+add another route, tags, that lists the most recent question under any given tags
+
+upDATE THE TAGSLIST CONTAINER TO LINK TO THE APPROPRIATE PAGE A TAG IS CLICKED
+
+HTTP://LOCALHOST:300/TAGS/REACT
+SHOULD DISPLAY A LIST OF REACT-TAGGED QUESTIONS
+
+EXAMPLE URL:
+https://api.stackexchange.com/2.2/search/advanced?tagged=reactjs&site=stackoverflow
+
+
+#2 Fetching Answers
+load the answers as well as the question when rendering the question detail view.
+
+
+answers shold be preloaded when server loading, but should be fetched after question details ar eloaded in client.
+
+example URL:
+https://api.stackexchange.com/2.2/questions/123/answers?site=stackoverflow
+
+#3 Paging
+when user reaches the bottom of the question list view, load the next 30 questiosn asnychronously.
+
+when the page is refreshed the user's scroll position and the list contents should be preserved.
+
+scroll and list should also be preserved when navigating to question detail and then navigating back

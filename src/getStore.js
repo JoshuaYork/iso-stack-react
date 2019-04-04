@@ -13,6 +13,7 @@ import {
 import createSagaMiddleware from 'redux-saga';
 import fetchQuestionSaga from './sagas/fetch-question.saga';
 import fetchQuestionsSaga from './sagas/fetch-questions.saga';
+import fetchTaggedQuestionsSaga from './sagas/fetch-questions-with-Tag.saga';
 import * as reducers from './reducers';
 
 /**
@@ -60,6 +61,7 @@ export default function (history, defaultState = {}) {
      */
     sagaMiddleware.run(fetchQuestionSaga);
     sagaMiddleware.run(fetchQuestionsSaga);
+    sagaMiddleware.run(fetchTaggedQuestionsSaga);
 
     /**
      * Return the store to the caller for application initialization

@@ -11,3 +11,12 @@ export const questions = `https://api.stackexchange.com/2.0/questions?site=stack
  * The question ID to fetch
  */
 export const question = (id) => `https://api.stackexchange.com/2.0/questions/${id}?site=stackoverflow&filter=withbody`;
+
+
+/**
+ * The URL to receive a list of questions in JSON from StackOverflow with a given tag.
+ * Works if you paste it into your browser's URL bar.
+ * Subject to eventual deprecation by its authors (Use mock data after that point)
+ * @param tag 
+ */
+export const tagQuestions = (tag) => `https://api.stackexchange.com/2.2/search/advanced?tagged=${tag}&site=stackoverflow`;

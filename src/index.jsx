@@ -76,6 +76,13 @@ const fetchDataForLocation = location=>{
     if (location.pathname.includes(`questions`)) {
         store.dispatch({type:`REQUEST_FETCH_QUESTION`,question_id:location.pathname.split('/')[2]});
     }
+
+    /**
+     * If the location is the tag route, fetch questions with specified tag
+     */
+    if (location.pathname.includes('tag')) {
+        store.dispatch({type: `REQUEST_FETCH_TAGGED_QUESTIONS`, tag:location.pathname.split('/')[2]});
+    }
 };
 /**
  * Initialize data fetching procedure
