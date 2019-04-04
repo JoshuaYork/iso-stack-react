@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const uglifyJs = require('uglifyjs-webpack-plugin');
 
 /**
  * Production Webpack Config bundles JS, then uglifies it and exports it to the "dist" directory
@@ -26,9 +27,12 @@ module.exports = {
          * Uglifies JS which improves performance
          * React will throw console warnings if this is not implemented
          */
-        new webpack.optimize.UglifyJsPlugin()
+        //new webpack.optimize.UglifyJsPlugin()
 
     ],
+    optimization: {
+        minimizer: [new uglifyJs()],
+    },
     resolve: {
         extensions: ['.js', '.json', '.jsx'],
     },
