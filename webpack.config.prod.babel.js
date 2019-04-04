@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const uglifyJs = require('uglifyjs-webpack-plugin');
 
 /**
  * Production Webpack Config bundles JS, then uglifies it and exports it to the "dist" directory
