@@ -6,6 +6,8 @@ const webpack = require('webpack');
  * See Development webpack config for detailed comments
  */
 module.exports = {
+    mode: 'production',
+
     entry: [
         'babel-regenerator-runtime',
         path.resolve(__dirname, 'src')
@@ -15,25 +17,12 @@ module.exports = {
         filename: 'bundle.js',
         publicPath: '/'
     },
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('production'),
-                WEBPACK: true
-            }
-        }),
-        /**
-         * Uglifies JS which improves performance
-         * React will throw console warnings if this is not implemented
-         */
-        new webpack.optimize.UglifyJsPlugin()
 
-    ],
     resolve: {
         extensions: ['.js', '.json', '.jsx'],
     },
     module: {
-        loaders: [{
+        rules: [{
             test: /\.jsx?$/,
             use: {
                 loader: 'babel-loader'
