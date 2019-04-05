@@ -8,4 +8,4 @@ branches:
 jobs:
   include:
     stage: test
-      script: npm build
+      script: npm run build
