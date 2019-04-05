@@ -8,4 +8,6 @@ branches:
 jobs:
   include:
     stage: test
-      script: make test
+    before_script:
+      - npm install
+    script: make test
