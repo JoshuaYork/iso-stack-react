@@ -146,9 +146,7 @@ function* getTaggedQuestions(tag) {
     /**
      * If live data is not used, read the mock questions file
      */
-    console.log("test", tag);
-    data = yield getQuestions();
-    data = data.items.filter(question => question.tags.includes(tag));
+    data = yield fs.readFile("./data/mock-questions.json", "utf-8");
   }
 
   /**
@@ -163,11 +161,6 @@ function* getTaggedQuestions(tag) {
  */
 app.get("/api/questions", function*(req, res) {
   const data = yield getQuestions();
-  /**
-   * Insert a small delay here so that the async/hot-reloading aspects of the application are
-   * more obvious. You are strongly encouraged to remove the delay for production.
-   */
-  yield delay(150);
   res.json(data);
 });
 
@@ -176,10 +169,6 @@ app.get("/api/questions", function*(req, res) {
  */
 app.get("/api/questions/:id", function*(req, res) {
   const data = yield getQuestion(req.params.id);
-  /**
-   * Remove this delay for production.
-   */
-  yield delay(150);
   res.json(data);
 });
 
@@ -189,11 +178,6 @@ app.get("/api/questions/:id", function*(req, res) {
  */
 app.get("/api/tag/:tag", function*(req, res) {
   const data = yield getTaggedQuestions(req.params.tag);
-  /**
-   * Insert a small delay here so that the async/hot-reloading aspects of the application are
-   * more obvious. You are strongly encouraged to remove the delay for production.
-   */
-  yield delay(150);
   res.json(data);
 });
 
