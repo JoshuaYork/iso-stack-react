@@ -8,5 +8,7 @@ branches:
 env:
   - NODE_ENV=development
 
-  script: 
-    make test
+jobs:
+    include:
+      stage: test
+        script: npm build
