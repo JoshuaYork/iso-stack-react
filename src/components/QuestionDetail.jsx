@@ -2,6 +2,7 @@ import React from "react";
 import Markdown from "react-markdown";
 import TagsList from "./TagsList";
 import { connect } from "react-redux";
+import Answers from "./Answers";
 
 /**
  * Question Detail Display outputs a view containing question information when passed a question
@@ -18,6 +19,9 @@ const QuestionDetailDisplay = ({ title, body, answer_count, tags }) => (
         </div>
         <Markdown source={body} />
         <div>{answer_count} Answers</div>
+        <div>
+          <Answers />
+        </div>
       </div>
     ) : (
       <div>
