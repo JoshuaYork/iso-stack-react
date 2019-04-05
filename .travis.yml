@@ -6,6 +6,6 @@ branches:
   - master
 
 jobs:
-    include:
-      stage: test
-        script: npm build
+  include:
+    stage: test
+      script: npm build
