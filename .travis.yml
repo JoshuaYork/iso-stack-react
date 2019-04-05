@@ -3,11 +3,11 @@ node_js:
   - "8"
 branches:
   only:
-  - master
+    - master
 
 jobs:
   include:
     stage: test
     before_script:
       - npm install
-    script: make test
+    script: npm run build
