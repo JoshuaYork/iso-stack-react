@@ -1,9 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const AnswerDisplay = ({answer}) => {
-  <div>Display Answer...</div>;
-};
+const AnswerDisplay = ({answer}) => (
+  <div>
+    {answer ? <div>Answer stuff</div>
+    :<div>Display Answer...</div>
+    }
+  </div>
+)
 
 const AnswersList = ({answers}) => (
   

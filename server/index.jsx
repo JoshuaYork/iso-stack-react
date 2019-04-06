@@ -135,6 +135,16 @@ function* getQuestion(question_id) {
   return data;
 }
 
+function* getAnswers(answer_id) {
+  let data;
+  if (useLiveData) {
+    data = yield get(answer(answer_id), {gzip: true, json: true});
+  } else {
+    data = yield fs.readFile("./data/mock-answers.json", "utf-8");
+  }
+  return JSON.parse(data);
+}
+
 function* getTaggedQuestions(tag) {
   let data;
   if (useLiveData) {

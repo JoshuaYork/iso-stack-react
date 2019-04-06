@@ -20,7 +20,7 @@ const QuestionDetailDisplay = ({ title, body, answer_count, tags }) => (
         <Markdown source={body} />
         <div>{answer_count} Answers</div>
         <div>
-          <AnswersList />
+          <AnswersList answers={} />
         </div>
       </div>
     ) : (
