@@ -1,16 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 
-const AnswerDisplay = answer => {
+const AnswerDisplay = ({answer}) => {
   <div>Display Answer...</div>;
 };
-const AnswersList = () => {
+
+const AnswersList = ({answers}) => (
+  
   <div>
-    {answers.map(answer => (
-      <AnswerDisplay answer={answer} />
-    ))}
-  </div>;
-};
+    {answers ? (
+      answers.map(answer => <AnswerDisplay answer={answer} />)
+    ) : (
+      <div>...Loading</div>
+    )}
+  </div>
+);
 /**
  * Get the list of questions from the application's state
  * It is populated by a ../sagas/fetch-answer(s)-saga.
