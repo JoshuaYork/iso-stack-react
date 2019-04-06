@@ -18,7 +18,7 @@ export default function* () {
 function* handleFetchQuestion({
     tag
 }) {
-    const raw = yield fetch(`/api/tag/${tag}`);
+    const raw = yield fetch(`/api/tags/${tag}`);
     const json = yield raw.json();
     const questions = json.items;
     /**

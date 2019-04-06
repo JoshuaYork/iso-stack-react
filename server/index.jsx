@@ -176,7 +176,7 @@ app.get("/api/questions/:id", function*(req, res) {
  * Creates an api route localhost:3000/api/tag, which returns a list of questions
  * using the getTaggedQuestions utility
  */
-app.get("/api/tag/:tag", function*(req, res) {
+app.get("/api/tags/:tag", function*(req, res) {
   const data = yield getTaggedQuestions(req.params.tag);
   res.json(data);
 });
@@ -184,7 +184,7 @@ app.get("/api/tag/:tag", function*(req, res) {
 /**
  * Create a route that triggers only when one of the two view URLS are accessed
  */
-app.get(["/", "/questions/:id", "/tag/:tag"], function*(req, res) {
+app.get(["/", "/questions/:id", "/tags/:tag"], function*(req, res) {
   /**
    * Read the raw index HTML file
    */
