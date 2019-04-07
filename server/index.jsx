@@ -243,9 +243,9 @@ app.get(["/", "/questions/:id", "/tags/:tag"], function*(req, res) {
     /**
      * Get the question that corresponds to the request, and preload the initial state with it
      */
-    const response = yield getTaggedQuestions(tag);
-    const questions = response.items[0];
-    initialState.questions = questions;
+    const questions = yield getTaggedQuestions(tag);
+
+    initialState.questions = [...questions.items];
   } else {
     /**
      * Otherwise, we are on the "new questions view", so preload the state with all the new questions (not including their bodies or answers)
