@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The tags List renders as expected 1`] = `
+<div>
+  <code>
+    <a
+      href="/tags/css"
+    >
+      css
+    </a>
+  </code>
+  <code>
+    <a
+      href="/tags/html"
+    >
+      html
+    </a>
+  </code>
+  <code>
+    <a
+      href="/tags/go"
+    >
+      go
+    </a>
+  </code>
+</div>
+`;
