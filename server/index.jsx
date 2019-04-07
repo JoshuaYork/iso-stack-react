@@ -135,6 +135,26 @@ function* getQuestion(question_id) {
   return data;
 }
 
+function* getanswers() {
+  let data;
+  if (useLiveData) {
+    /**
+     * If live data is used, contact the external API
+     */
+    data = yield get(answers, { gzip: true });
+  } else {
+    /**
+     * If live data is not used, read the mock questions file
+     */
+    data = yield fs.readFile("./data/mock-answers.json", "utf-8");
+  }
+
+  /**
+   * Parse the data and return it
+   */
+  return JSON.parse(data);
+}
+
 function* getAnswers(answer_id) {
   let data;
   if (useLiveData) {
@@ -179,6 +199,24 @@ app.get("/api/questions", function*(req, res) {
  */
 app.get("/api/questions/:id", function*(req, res) {
   const data = yield getQuestion(req.params.id);
+  res.json(data);
+});
+
+/**
+ * Creates an api route localhost:3000/api/answers, which returns a list of answers
+ * using the getAnswers utility
+ */
+app.get("/api/answers", function*(req, res) {
+  const data = yield getAnswers(req.params.id);
+  res.json(data);
+});
+
+/**
+ * Creates an api route localhost:3000/api/answers, which returns a single answer
+ * using the getAnswers utility
+ */
+app.get("/api/answers/:id", function*(req, res) {
+  const data = yield getAnswer(req.params.id);
   res.json(data);
 });
 

@@ -9,7 +9,7 @@ import AnswersList from "./AnswersList";
  * as its prop
  * If no question is found, that means the saga that is loading it has not completed, and display an interim message
  */
-const QuestionDetailDisplay = ({
+export const QuestionDetailDisplay = ({
   title,
   body,
   answer_count,
@@ -25,9 +25,7 @@ const QuestionDetailDisplay = ({
         </div>
         <Markdown source={body} />
         <div>{answer_count} Answers</div>
-        <div>
-          <AnswersList answers={answers} />
-        </div>
+        <div>{/* <AnswersList answers={answers} /> */}</div>
       </div>
     ) : (
       <div>
@@ -38,7 +36,7 @@ const QuestionDetailDisplay = ({
   </div>
 );
 
-const mapStateToProps = (state, ownProps) => ({
+export const mapStateToProps = (state, ownProps) => ({
   /**
    * Find the question in the state that matches the ID provided and pass it to the display component
    */
