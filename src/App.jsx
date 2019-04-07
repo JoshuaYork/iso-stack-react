@@ -27,7 +27,7 @@ const AppDisplay = () => (
       path='/questions/:id'
       render={({ match }) => <QuestionDetail question_id={match.params.id} />}
     />
-    <Route exact path='/tags/:tag' render={({ match }) => <QuestionList />} />
+    <Route exact path='/tags/:tag' render={({ match }) => <QuestionList questions={match.params.tag}/>} />
   </div>
 );
 

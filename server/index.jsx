@@ -138,7 +138,7 @@ function* getQuestion(question_id) {
 function* getAnswers(answer_id) {
   let data;
   if (useLiveData) {
-    data = yield get(answer(answer_id), {gzip: true, json: true});
+    data = yield get(answer(answer_id), { gzip: true, json: true });
   } else {
     data = yield fs.readFile("./data/mock-answers.json", "utf-8");
   }
@@ -243,9 +243,9 @@ app.get(["/", "/questions/:id", "/tags/:tag"], function*(req, res) {
     /**
      * Get the question that corresponds to the request, and preload the initial state with it
      */
-    const response = yield getTaggedQuestions(tag);
-    const questions = response.items[0];
-    initialState.questions = questions;
+    console.log("tags:", tag);
+    const questions = yield getTaggedQuestions(tag);
+    initialState.questions = [...questions.items];
   } else {
     /**
      * Otherwise, we are on the "new questions view", so preload the state with all the new questions (not including their bodies or answers)
@@ -262,6 +262,7 @@ app.get(["/", "/questions/:id", "/tags/:tag"], function*(req, res) {
   /**
    * If server render is used, replace the specified block in index with the application's rendered HTML
    */
+  console.log("use server:", useServerRender);
   if (useServerRender) {
     const appRendered = renderToString(
       /**
