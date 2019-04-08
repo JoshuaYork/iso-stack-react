@@ -20,3 +20,5 @@ export const question = (id) => `https://api.stackexchange.com/2.0/questions/${i
  * @param tag 
  */
 export const tagQuestions = (tag) => `https://api.stackexchange.com/2.2/search/advanced?tagged=${tag}&site=stackoverflow`;
+
+export const answers = (question_id) => `https://api.stackexchange.com/2.2/questions/${question_id}/answers?site=stackoverflow&filter=withbody`;

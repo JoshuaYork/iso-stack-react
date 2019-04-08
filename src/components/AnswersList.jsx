@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 const AnswerDisplay = ({answer}) => (
   <div>
-    {answer ? <div>Answer stuff</div>
+    {answer ? <div>{answer.body}</div>
     :<div>Display Answer...</div>
     }
   </div>
@@ -11,9 +11,9 @@ const AnswerDisplay = ({answer}) => (
 
 const AnswersList = ({answers}) => (
   
-  <div>
+  <div> {answers.length}
     {answers ? (
-      answers.map(answer => <AnswerDisplay answer={answer} />)
+      answers.map(answer => <AnswerDisplay answerBody={answer} />)
     ) : (
       <div>...Loading</div>
     )}

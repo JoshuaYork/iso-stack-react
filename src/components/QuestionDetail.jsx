@@ -9,7 +9,13 @@ import AnswersList from "./AnswersList";
  * as its prop
  * If no question is found, that means the saga that is loading it has not completed, and display an interim message
  */
-const QuestionDetailDisplay = ({ title, body, answer_count, tags }) => (
+const QuestionDetailDisplay = ({
+  title,
+  body,
+  answer_count,
+  tags,
+  question_id
+}) => (
   <div>
     <h3 className='mb-2'>{title}</h3>
     {body ? (
@@ -20,7 +26,7 @@ const QuestionDetailDisplay = ({ title, body, answer_count, tags }) => (
         <Markdown source={body} />
         <div>{answer_count} Answers</div>
         <div>
-          <AnswersList />
+          <AnswersList key={question_id} />
         </div>
       </div>
     ) : (

@@ -3,26 +3,26 @@
  * It is NOT loaded by the server at any time as the configurations used (i.e.,browserHistory) only work in the client context.
  * The server may load the App component when server rendering.
  */
-import App from './App'
-import ReactDOM from 'react-dom'
-import React from 'react';
-import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux'
-import getStore from './getStore';
-import { createBrowserHistory } from 'history';
+import App from "./App";
+import ReactDOM from "react-dom";
+import React from "react";
+import { Provider } from "react-redux";
+import { ConnectedRouter } from "react-router-redux";
+import getStore from "./getStore";
+import { createBrowserHistory } from "history";
 
 const history = createBrowserHistory();
 const store = getStore(history);
 
 if (module.hot) {
-    /**
-     * If using hot module reloading, watch for any changes to App or its descendent modules.
-     * Then, reload the application without restarting or changing the reducers, storeo r state.
-     */
-    module.hot.accept('./App', () => {
-        const NextApp = require('./App').default;
-        render(NextApp);
-    });
+  /**
+   * If using hot module reloading, watch for any changes to App or its descendent modules.
+   * Then, reload the application without restarting or changing the reducers, storeo r state.
+   */
+  module.hot.accept("./App", () => {
+    const NextApp = require("./App").default;
+    render(NextApp);
+  });
 }
 
 /**
@@ -30,30 +30,31 @@ if (module.hot) {
  * encapsulated inside a router, which will automatically let Route tags render based on the Redux store,
  * which itself is encapsulated inside a provider, which gives child connected components access to the Redux store
  */
-const render = (_App)=>{
-    ReactDOM.render(
-        <Provider store={store}>
-            <ConnectedRouter  history={history}>
-                 <_App />
-             </ConnectedRouter>
-         </Provider>
-        ,document.getElementById("AppContainer"));
+const render = _App => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <ConnectedRouter history={history}>
+        <_App />
+      </ConnectedRouter>
+    </Provider>,
+    document.getElementById("AppContainer")
+  );
 };
 
 /**
  * Listen for changes to the store
  */
-store.subscribe(()=>{
-    const state = store.getState();
-    /**
-     * When the questions array is populated, that means the saga round trip has completed,
-     * and the application can be rendered.
-     * Rendering before the questions arrived would result in the server-generated content being replaced with
-     * a blank page.
-     */
-    if (state.questions.length > 0) {
-        render(App);
-    }
+store.subscribe(() => {
+  const state = store.getState();
+  /**
+   * When the questions array is populated, that means the saga round trip has completed,
+   * and the application can be rendered.
+   * Rendering before the questions arrived would result in the server-generated content being replaced with
+   * a blank page.
+   */
+  if (state.questions.length > 0) {
+    render(App);
+  }
 });
 
 /**
@@ -62,27 +63,40 @@ store.subscribe(()=>{
  * @param location
  * The current URL that is loaded
  */
-const fetchDataForLocation = location=>{
-    /**
-     * If the location is the standard route, fetch an undetailed list of all questions
-     **/
-    if (location.pathname === "/"){
-        store.dispatch({type:`REQUEST_FETCH_QUESTIONS`})
-    }
+const fetchDataForLocation = location => {
+  /**
+   * If the location is the standard route, fetch an undetailed list of all questions
+   **/
+  if (location.pathname === "/") {
+    store.dispatch({ type: `REQUEST_FETCH_QUESTIONS` });
+  }
 
-    /**
-     * If the location is the details route, fetch details for one question
-     */
-    if (location.pathname.includes(`questions`)) {
-        store.dispatch({type:`REQUEST_FETCH_QUESTION`,question_id:location.pathname.split('/')[2]});
-    }
+  /**
+   * If the location is the details route, fetch details for one question
+   */
+  if (location.pathname.includes(`questions`)) {
+    store.dispatch({
+      type: `REQUEST_FETCH_QUESTION`,
+      question_id: location.pathname.split("/")[2]
+    });
 
-    /**
-     * If the location is the tag route, fetch questions with specified tag
-     */
-    if (location.pathname.includes('tag')) {
-        store.dispatch({type: `REQUEST_FETCH_TAGGED_QUESTIONS`, tag:location.pathname.split('/')[2]});
-    }
+    store.dispatch({
+        type: `REQUEST_FETCH_ANSWERS`,
+        question_id: location.pathname.split("/")[2]
+    });
+  
+
+  /**
+   * If the location is the tag route, fetch questions with specified tag
+   */
+  if (location.pathname.includes("tag")) {
+    store.dispatch({
+      type: `REQUEST_FETCH_TAGGED_QUESTIONS`,
+      tag: location.pathname.split("/")[2]
+    });
+  }
+
+  }
 };
 /**
  * Initialize data fetching procedure

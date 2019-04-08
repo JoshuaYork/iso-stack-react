@@ -8,7 +8,12 @@ import { delay } from "redux-saga";
 import { renderToString } from "react-dom/server";
 import React from "react";
 import { argv } from "optimist";
-import { questions, question, tagQuestions } from "../data/api-real-url";
+import {
+  questions,
+  question,
+  tagQuestions,
+  answers
+} from "../data/api-real-url";
 import { get } from "request-promise";
 import { ConnectedRouter } from "react-router-redux";
 import getStore from "../src/getStore";
@@ -135,14 +140,17 @@ function* getQuestion(question_id) {
   return data;
 }
 
-function* getAnswers(answer_id) {
+function* getAnswers(question_id) {
   let data;
+
   if (useLiveData) {
-    data = yield get(answer(answer_id), {gzip: true, json: true});
+    data = yield get(answers(question_id), { gzip: true, json: true });
+    console.log("get answers", data);
   } else {
     data = yield fs.readFile("./data/mock-answers.json", "utf-8");
   }
-  return JSON.parse(data);
+
+  return data;
 }
 
 function* getTaggedQuestions(tag) {
@@ -183,6 +191,14 @@ app.get("/api/questions/:id", function*(req, res) {
 });
 
 /**
+ * Get Answers for the question details
+ */
+app.get("/api/questions/:id/answers", function*(req, res) {
+  const data = yield getAnswers(req.params.id);
+  res.json(data);
+});
+
+/**
  * Creates an api route localhost:3000/api/tag, which returns a list of questions
  * using the getTaggedQuestions utility
  */
@@ -216,7 +232,8 @@ app.get(["/", "/questions/:id", "/tags/:tag"], function*(req, res) {
    * Create a default initial state which will be populated based on the route
    */
   const initialState = {
-    questions: []
+    questions: [],
+    answers: []
   };
 
   /**
@@ -234,6 +251,10 @@ app.get(["/", "/questions/:id", "/tags/:tag"], function*(req, res) {
     const response = yield getQuestion(question_id);
     const questionDetails = response.items[0];
     initialState.questions = [{ ...questionDetails, question_id }];
+
+    //get answers to the question
+    const respAnswers = yield getAnswers(question_id);
+    initialState.answers = respAnswers;
   } else if (req.params.tag) {
     /**
      * If there is req.params.tag, this must be the tagged questions route.

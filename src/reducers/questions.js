@@ -6,7 +6,8 @@ import unionWith from 'lodash/unionWith';
 export const questions = (state = [], {
     type,
     question,
-    questions
+    questions,
+    
 }) => {
     /**
      * Question Equality returns true if two questions are equal, based on a weak check of their question_id property
@@ -31,7 +32,7 @@ export const questions = (state = [], {
     if (type === `FETCHED_QUESTIONS`) {
         state = unionWith(state, questions, questionEquality);
     }
-    if (type== 'FETCHED_TAGGED_QUESTIONS') {
+    if (type == 'FETCHED_TAGGED_QUESTIONS') {
         state = questions;
     }
     return state;

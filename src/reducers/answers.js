@@ -1,28 +1,30 @@
-import unionWith from 'lodash/unionWith';
-
+import unionWith from 'lodash';
+/**
+ * Questions reducer, deals mostly with actions dispatched from sagas.
+ */
 export const answers = (state = [], {
     type,
-    answer,
     answers
 }) => {
     /**
-     * Answer Equality returns true if two answers are equal, based on a weak check of their answer_id property
+     * Question Equality returns true if two questions are equal, based on a weak check of their question_id property
      * @param a
-     * The first answer
+     * The first question
      * @param b
-     * The second answer
+     * The second question
      * @returns {boolean}
-     * Whether the answer are equal
+     * Whether the questions are equal
      */
     const answerEquality = (a = {}, b = {}) => {
         return a.answer_id == b.answer_id
     };
+
     /**
      * Create a new state by combining the existing state with the question(s) that has been newly fetched
      */
-    if (type === `FETCHED_ANSWER`) {
-        state = unionWith([answer], state, answerEquality);
-    }
 
+    if (type === `FETCHED_ANSWERS`) {
+        state = unionWith(state, answers, answerEquality);
+    }
     return state;
-}
+};
