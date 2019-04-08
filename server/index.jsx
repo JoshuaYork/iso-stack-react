@@ -149,7 +149,7 @@ function* getAnswers(question_id) {
     data = yield fs.readFile("./data/mock-answers.json", "utf-8");
     data = JSON.parse(data);
 
-    data = data.items.find(_answer => _answer.question_id == question_id);
+    data = data.items.filter(_answer => _answer.question_id == question_id);
   }
 
   return data;

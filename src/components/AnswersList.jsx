@@ -1,17 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
+import { statement } from "@babel/template";
 
-const AnswerDisplay = ({answer}) => (
+const AnswerDisplay = ({ answer }) => (
+  <div>{answer ? <div>{answer.body}</div> : <div>Display Answer...</div>}</div>
+);
+
+const AnswersList = ({ answers }) => (
   <div>
-    {answer ? <div>{answer.body}</div>
-    :<div>Display Answer...</div>
-    }
-  </div>
-)
-
-const AnswersList = ({answers}) => (
-  
-  <div> {answers.length}
+    {answers.length}
     {answers ? (
       answers.map(answer => <AnswerDisplay answerBody={answer} />)
     ) : (
@@ -24,7 +21,7 @@ const AnswersList = ({answers}) => (
  * It is populated by a ../sagas/fetch-answer(s)-saga.
  */
 const mapStateToProps = ({ answers }) => ({
-  answers
+  answers: answers
 });
 
 /**

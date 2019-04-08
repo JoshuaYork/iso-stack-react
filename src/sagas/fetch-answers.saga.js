@@ -19,7 +19,7 @@ function* handleFetchAnswer({
 }) {
     const raw = yield fetch(`/api/questions/${question_id}/answers`);
     const json = yield raw.json();
-    const answers = json.items;
+    const answers = json;
     /**
      * Notify application that answer has been fetched
      */
