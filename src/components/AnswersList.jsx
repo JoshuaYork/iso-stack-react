@@ -1,16 +1,25 @@
 import React from "react";
 import { connect } from "react-redux";
-import { statement } from "@babel/template";
+import Markdown from "react-markdown";
 
 const AnswerDisplay = ({ answer }) => (
-  <div>{answer ? <div>{answer.body}</div> : <div>Display Answer...</div>}</div>
+  <div>
+    {answer ? (
+      <div>
+        <Markdown source={answer.body} />
+      </div>
+    ) : (
+      <div>Display Answer...</div>
+    )}
+  </div>
 );
 
 const AnswersList = ({ answers }) => (
   <div>
-    {answers.length}
     {answers ? (
-      answers.map(answer => <AnswerDisplay answerBody={answer} />)
+      answers.map(answer => (
+        <AnswerDisplay key={answer.answer_id} answer={answer} />
+      ))
     ) : (
       <div>...Loading</div>
     )}
@@ -21,7 +30,7 @@ const AnswersList = ({ answers }) => (
  * It is populated by a ../sagas/fetch-answer(s)-saga.
  */
 const mapStateToProps = ({ answers }) => ({
-  answers: answers
+  answers
 });
 
 /**

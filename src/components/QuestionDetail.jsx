@@ -26,7 +26,7 @@ const QuestionDetailDisplay = ({
         <Markdown source={body} />
         <div>{answer_count} Answers</div>
         <div>
-          <AnswersList key={question_id} />
+          <AnswersList />
         </div>
       </div>
     ) : (

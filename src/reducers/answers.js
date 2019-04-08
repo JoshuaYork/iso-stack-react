@@ -24,7 +24,7 @@ export const answers = (state = [], {
      */
 
     if (type === `FETCHED_ANSWERS`) {
-        state = unionWith(state, answers, answerEquality);
+        state = answers
     }
     return state;
 };
