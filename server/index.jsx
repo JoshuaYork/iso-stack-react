@@ -145,6 +145,7 @@ function* getAnswers(question_id) {
 
   if (useLiveData) {
     data = yield get(answers(question_id), { gzip: true, json: true });
+    data = JSON.parse(data);
   } else {
     data = yield fs.readFile("./data/mock-answers.json", "utf-8");
     data = JSON.parse(data);
