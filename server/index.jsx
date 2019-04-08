@@ -18,7 +18,7 @@ import { get } from "request-promise";
 import { ConnectedRouter } from "react-router-redux";
 import getStore from "../src/getStore";
 import { Provider } from "react-redux";
-import createHistory from "history/createMemoryHistory";
+import { createMemoryHistory } from "history";
 
 /**
  * Try and find a specific port as provided by an external cloud host, or go with a default value
@@ -145,9 +145,11 @@ function* getAnswers(question_id) {
 
   if (useLiveData) {
     data = yield get(answers(question_id), { gzip: true, json: true });
-    console.log("get answers", data);
   } else {
     data = yield fs.readFile("./data/mock-answers.json", "utf-8");
+    data = JSON.parse(data);
+
+    data = data.items.find(_answer => _answer.question_id == question_id);
   }
 
   return data;
@@ -220,7 +222,7 @@ app.get(["/", "/questions/:id", "/tags/:tag"], function*(req, res) {
    * Create a memoryHistory, which can be
    * used to pre-configure our Redux state and routes
    */
-  const history = createHistory({
+  const history = createMemoryHistory({
     /**
      * By setting initialEntries to the current path, the application will correctly render into the
      * right view when server rendering
