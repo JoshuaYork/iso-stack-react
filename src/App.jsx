@@ -1,9 +1,9 @@
-import React from "react";
-import QuestionList from "./components/QuestionList";
-import QuestionDetail from "./components/QuestionDetail";
-import { connect } from "react-redux";
+import React from 'react';
+import QuestionList from './components/QuestionList';
+import QuestionDetail from './components/QuestionDetail';
+import { connect } from 'react-redux';
 
-import { Route, Link } from "react-router-dom";
+import { Route, Link } from 'react-router-dom';
 
 /**
  * App Component is the highest level real component in the application, it is the parent of the routes and an
@@ -27,7 +27,7 @@ const AppDisplay = () => (
       path='/questions/:id'
       render={({ match }) => <QuestionDetail question_id={match.params.id} />}
     />
-    <Route exact path='/tags/:tag' render={({ match }) => <QuestionList />} />
+    <Route exact path='/tags/:tag' render={() => <QuestionList />} />
   </div>
 );
 
