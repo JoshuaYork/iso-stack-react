@@ -9,7 +9,8 @@
     "start": "npm run start-prod",
     "start-dev": "cross-env NODE_ENV=development babel-node server --useServerRender=true --useLiveData=false --inspect",
     "start-prod": "npm run build && cross-env NODE_ENV=production babel-node server --useServerRender=true --useLiveData=true",
-    "start-dev-live": "cross-env NODE_ENV=development babel-node server --useServerRender=true --useLiveData=true"
+    "start-dev-live": "cross-env NODE_ENV=development babel-node server --useServerRender=true --useLiveData=true",
+    "start-dev-live-debug": "cross-env NODE_ENV=development babel-node server --useServerRender=true --useLiveData=true --inspect"
   },
   "keywords": [],
   "author": "Josh York",
