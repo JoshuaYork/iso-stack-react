@@ -211,7 +211,7 @@ app.get("/api/tags/:tag", function*(req, res) {
 });
 
 /**
- * Create a route that triggers only when one of the two view URLS are accessed
+ * Create a route that triggers only when one of the three view URLS are accessed
  */
 app.get(["/", "/questions/:id", "/tags/:tag"], function*(req, res) {
   /**
