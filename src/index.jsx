@@ -3,13 +3,13 @@
  * It is NOT loaded by the server at any time as the configurations used (i.e.,browserHistory) only work in the client context.
  * The server may load the App component when server rendering.
  */
-import App from "./App";
-import ReactDOM from "react-dom";
-import React from "react";
-import { Provider } from "react-redux";
-import { ConnectedRouter } from "react-router-redux";
-import getStore from "./getStore";
-import { createBrowserHistory } from "history";
+import App from './App';
+import ReactDOM from 'react-dom';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { ConnectedRouter } from 'react-router-redux';
+import getStore from './getStore';
+import { createBrowserHistory } from 'history';
 
 const history = createBrowserHistory();
 const store = getStore(history);
@@ -19,8 +19,8 @@ if (module.hot) {
    * If using hot module reloading, watch for any changes to App or its descendent modules.
    * Then, reload the application without restarting or changing the reducers, storeo r state.
    */
-  module.hot.accept("./App", () => {
-    const NextApp = require("./App").default;
+  module.hot.accept('./App', () => {
+    const NextApp = require('./App').default;
     render(NextApp);
   });
 }
@@ -37,7 +37,7 @@ const render = _App => {
         <_App />
       </ConnectedRouter>
     </Provider>,
-    document.getElementById("AppContainer")
+    document.getElementById('AppContainer')
   );
 };
 
@@ -67,7 +67,7 @@ const fetchDataForLocation = location => {
   /**
    * If the location is the standard route, fetch an undetailed list of all questions
    **/
-  if (location.pathname === "/") {
+  if (location.pathname === '/') {
     store.dispatch({ type: `REQUEST_FETCH_QUESTIONS` });
   }
 
@@ -77,25 +77,23 @@ const fetchDataForLocation = location => {
   if (location.pathname.includes(`questions`)) {
     store.dispatch({
       type: `REQUEST_FETCH_QUESTION`,
-      question_id: location.pathname.split("/")[2]
+      question_id: location.pathname.split('/')[2]
     });
 
     store.dispatch({
-        type: `REQUEST_FETCH_ANSWERS`,
-        question_id: location.pathname.split("/")[2]
+      type: `REQUEST_FETCH_ANSWERS`,
+      question_id: location.pathname.split('/')[2]
     });
-  
+  }
 
   /**
    * If the location is the tag route, fetch questions with specified tag
    */
-  if (location.pathname.includes("tag")) {
+  if (location.pathname.includes('tag')) {
     store.dispatch({
       type: `REQUEST_FETCH_TAGGED_QUESTIONS`,
-      tag: location.pathname.split("/")[2]
+      tag: location.pathname.split('/')[2]
     });
-  }
-
   }
 };
 /**
