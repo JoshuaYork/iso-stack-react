@@ -1,24 +1,24 @@
-import path from "path";
-import express from "express";
-import webpack from "webpack";
-import yields from "express-yields";
-import fs from "fs-extra";
-import App from "../src/App";
-import { delay } from "redux-saga";
-import { renderToString } from "react-dom/server";
-import React from "react";
-import { argv } from "optimist";
+import path from 'path';
+import express from 'express';
+import webpack from 'webpack';
+import yields from 'express-yields';
+import fs from 'fs-extra';
+import App from '../src/App';
+import { delay } from 'redux-saga';
+import { renderToString } from 'react-dom/server';
+import React from 'react';
+import { argv } from 'optimist';
 import {
   questions,
   question,
   tagQuestions,
   answers
-} from "../data/api-real-url";
-import { get } from "request-promise";
-import { ConnectedRouter } from "react-router-redux";
-import getStore from "../src/getStore";
-import { Provider } from "react-redux";
-import { createMemoryHistory } from "history";
+} from '../data/api-real-url';
+import { get } from 'request-promise';
+import { ConnectedRouter } from 'react-router-redux';
+import getStore from '../src/getStore';
+import { Provider } from 'react-redux';
+import { createMemoryHistory } from 'history';
 
 /**
  * Try and find a specific port as provided by an external cloud host, or go with a default value
@@ -32,7 +32,7 @@ const app = express();
  * When useServerRender is true, the application will be pre-rendered on the server. Otherwise,
  * just the normal HTML page will load and the app will bootstrap after it has made the required AJAX calls
  */
-const useServerRender = argv.useServerRender === "true";
+const useServerRender = argv.useServerRender === 'true';
 
 /**
  * When useLiveData is true, the application attempts to contact Stackoverflow and interact with its actual API.
@@ -40,17 +40,17 @@ const useServerRender = argv.useServerRender === "true";
  * Stackoverflow (for free at https://stackapps.com/apps/oauth/register)
  * OR, just disable useLiveData
  */
-const useLiveData = argv.useLiveData === "true";
+const useLiveData = argv.useLiveData === 'true';
 
 /**
  * The block below will run during development and facilitates live-reloading
  * If the process is development, set up the full live reload server
  */
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === 'development') {
   /**
    * Get the development configuration from webpack.config.
    */
-  const config = require("../webpack.config.dev.babel.js").default;
+  const config = require('../webpack.config.dev.babel.js').default;
 
   /**
    * Create a webpack compiler which will output our bundle.js based on the application's code
@@ -62,7 +62,7 @@ if (process.env.NODE_ENV === "development") {
    * based on changed files
    */
   app.use(
-    require("webpack-dev-middleware")(compiler, {
+    require('webpack-dev-middleware')(compiler, {
       /**
        * @noInfo Only display warnings and errors to the concsole
        */
@@ -83,13 +83,13 @@ if (process.env.NODE_ENV === "development") {
    * Hot middleware allows the page to reload automatically while we are working on it.
    * Can be used instead of react-hot-middleware if Redux is being used to manage app state
    */
-  app.use(require("webpack-hot-middleware")(compiler));
+  app.use(require('webpack-hot-middleware')(compiler));
 } else {
   /**
    * If the process is production, just serve the file from the dist folder
    * Build should have been run beforehand
    */
-  app.use(express.static(path.resolve(__dirname, "../dist")));
+  app.use(express.static(path.resolve(__dirname, '../dist')));
 }
 
 /**
@@ -106,7 +106,7 @@ function* getQuestions() {
     /**
      * If live data is not used, read the mock questions file
      */
-    data = yield fs.readFile("./data/mock-questions.json", "utf-8");
+    data = yield fs.readFile('./data/mock-questions.json', 'utf-8');
   }
 
   /**
@@ -145,11 +145,9 @@ function* getAnswers(question_id) {
 
   if (useLiveData) {
     data = yield get(answers(question_id), { gzip: true, json: true });
-    data = JSON.parse(data);
   } else {
     data = yield fs.readFile("./data/mock-answers.json", "utf-8");
     data = JSON.parse(data);
-
     data = data.items.filter(_answer => _answer.question_id == question_id);
   }
 
@@ -167,7 +165,7 @@ function* getTaggedQuestions(tag) {
     /**
      * If live data is not used, read the mock questions file
      */
-    data = yield fs.readFile("./data/mock-questions.json", "utf-8");
+    data = yield fs.readFile('./data/mock-questions.json', 'utf-8');
   }
 
   /**
@@ -180,7 +178,7 @@ function* getTaggedQuestions(tag) {
  * Creates an api route localhost:3000/api/questions, which returns a list of questions
  * using the getQuestions utility
  */
-app.get("/api/questions", function*(req, res) {
+app.get('/api/questions', function*(req, res) {
   const data = yield getQuestions();
   res.json(data);
 });
@@ -188,7 +186,7 @@ app.get("/api/questions", function*(req, res) {
 /**
  * Special route for returning detailed information on a single question
  */
-app.get("/api/questions/:id", function*(req, res) {
+app.get('/api/questions/:id', function*(req, res) {
   const data = yield getQuestion(req.params.id);
   res.json(data);
 });
@@ -196,7 +194,7 @@ app.get("/api/questions/:id", function*(req, res) {
 /**
  * Get Answers for the question details
  */
-app.get("/api/questions/:id/answers", function*(req, res) {
+app.get('/api/questions/:id/answers', function*(req, res) {
   const data = yield getAnswers(req.params.id);
   res.json(data);
 });
@@ -205,7 +203,7 @@ app.get("/api/questions/:id/answers", function*(req, res) {
  * Creates an api route localhost:3000/api/tag, which returns a list of questions
  * using the getTaggedQuestions utility
  */
-app.get("/api/tags/:tag", function*(req, res) {
+app.get('/api/tags/:tag', function*(req, res) {
   const data = yield getTaggedQuestions(req.params.tag);
   res.json(data);
 });
@@ -213,11 +211,11 @@ app.get("/api/tags/:tag", function*(req, res) {
 /**
  * Create a route that triggers only when one of the three view URLS are accessed
  */
-app.get(["/", "/questions/:id", "/tags/:tag"], function*(req, res) {
+app.get(['/', '/questions/:id', '/tags/:tag'], function*(req, res) {
   /**
    * Read the raw index HTML file
    */
-  let index = yield fs.readFile("./public/index.html", "utf-8");
+  let index = yield fs.readFile('./public/index.html', 'utf-8');
 
   /**
    * Create a memoryHistory, which can be
@@ -314,6 +312,6 @@ app.get(["/", "/questions/:id", "/tags/:tag"], function*(req, res) {
 /**
  * Listen on the specified port for requests to serve the application
  */
-app.listen(port, "0.0.0.0", () =>
+app.listen(port, '0.0.0.0', () =>
   console.info(`Listening at http://localhost:${port}`)
 );
