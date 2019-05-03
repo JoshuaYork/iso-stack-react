@@ -146,7 +146,7 @@ function* getAnswers(question_id) {
   if (useLiveData) {
     data = yield get(answers(question_id), { gzip: true, json: true });
   } else {
-    data = yield fs.readFile("./data/mock-answers.json", "utf-8");
+    data = yield fs.readFile('./data/mock-answers.json', 'utf-8');
     data = JSON.parse(data);
     data = data.items.filter(_answer => _answer.question_id == question_id);
   }
@@ -255,7 +255,7 @@ app.get(['/', '/questions/:id', '/tags/:tag'], function*(req, res) {
 
     //get answers to the question
     const respAnswers = yield getAnswers(question_id);
-    initialState.answers = respAnswers;
+    initialState.answers = respAnswers.items;
   } else if (req.params.tag) {
     /**
      * If there is req.params.tag, this must be the tagged questions route.
