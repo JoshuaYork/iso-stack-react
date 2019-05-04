@@ -24,7 +24,7 @@ const QuestionDetailDisplay = ({
           <TagsList tags={tags} />
         </div>
         <Markdown className='questions' source={body} />
-        <div>{answer_count} Answers</div>
+        <h2>{answer_count} Answers</h2>
         <div>
           <AnswersList />
         </div>

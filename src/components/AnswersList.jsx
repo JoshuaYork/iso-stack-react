@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Markdown from 'react-markdown';
-import styles from './answerlist.module.css';
 
 const AnswerDisplay = ({ answer }) => (
   <div>
     {answer ? (
       <div>
-        <Markdown className={styles.abody} source={answer.body} />
+        <Markdown className='answers' source={answer.body} />
       </div>
     ) : (
       <div>Display Answer...</div>
