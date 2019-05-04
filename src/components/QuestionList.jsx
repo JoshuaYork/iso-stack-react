@@ -1,7 +1,8 @@
-import React from "react";
-import TagsList from "./TagsList";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import React from 'react';
+import TagsList from './TagsList';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 
 /**
  * Each entry in the QuestionList is represtented by a QuestionListItem, which displays high-level information

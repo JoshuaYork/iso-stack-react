@@ -1,0 +1,13 @@
+@import "./config.css";
+
+.abody {
+    background-color: #9CB8FF;
+    border-style: ridge;
+    border-color: #fff;
+}
+
+.qbody {
+    background-color: #7aa0ff;
+    border-style: dashed;
+    border-color: #9cb9ff;
+}
