@@ -2,7 +2,7 @@ import React from 'react';
 import TagsList from './TagsList';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
+import Markdown from 'react-markdown';
 
 /**
  * Each entry in the QuestionList is represtented by a QuestionListItem, which displays high-level information
@@ -16,7 +16,7 @@ const QuestionListItem = ({
   question_id
 }) => (
   <div className='mb-3'>
-    <h3>{title}</h3>
+    <h3><Markdown source={title} /></h3>
     <div className='mb-2'>
       <TagsList tags={tags} />
     </div>
