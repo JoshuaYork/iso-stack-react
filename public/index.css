@@ -1,21 +1,24 @@
 .answers {
-    background-color: #9CB8FF;
-    border-style: ridge;
-    border-color: #fff;
+  /* background-color: #9CB8FF; */
+  border-style: ridge;
+  border-color: #9cb9ff;
+  padding: 1.5em;
 }
 
 .questions {
-    background-color: #7aa0ff;
-    border-style: dashed;
-    border-color: #9cb9ff;
+  /* background-color: #7aa0ff; */
+  border-style: dashed;
+  border-color: #9cb9ff;
+  padding: 1.5em;
 }
+
 body {
-    margin: auto;
-    padding: 1.5em;
-    max-width: 38rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-      sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+  margin: auto;
+  padding: 1.5em;
+  max-width: 38rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
