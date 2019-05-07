@@ -3,13 +3,15 @@
   border-style: ridge;
   border-color: #9cb9ff;
   padding: 1.5em;
+  overflow-y: auto;
 }
 
-.questions {
+.question {
   /* background-color: #7aa0ff; */
   border-style: dashed;
   border-color: #9cb9ff;
   padding: 1.5em;
+  overflow-y: auto;
 }
 
 body {
