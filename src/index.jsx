@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import getStore from './getStore';
 import { createBrowserHistory } from 'history';
+import styles from '../public/index.css';
 
 const history = createBrowserHistory();
 const store = getStore(history);
