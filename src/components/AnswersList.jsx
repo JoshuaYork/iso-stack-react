@@ -5,8 +5,13 @@ import Markdown from 'react-markdown';
 const AnswerDisplay = ({ answer }) => (
   <div>
     {answer ? (
-      <div>
-        <Markdown className='answers' source={answer.body} />
+      <div className='answers'>
+        <div>
+          {answer.is_accepted ? 'Accepted ' : ' NOT Accepted '}
+          Score {answer.score}
+        </div>
+
+        <Markdown source={answer.body} />
       </div>
     ) : (
       <div>Display Answer...</div>
