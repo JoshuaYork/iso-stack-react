@@ -13,7 +13,7 @@ const AppDisplay = () => (
   <div>
     <div>
       <Link to={`/`}>
-        <h1>Isomorphic React</h1>
+        <h1>Ahti</h1>
       </Link>
     </div>
 
@@ -23,7 +23,6 @@ const AppDisplay = () => (
     {/*Specify a route for questions where the detail renders differently depending on the question selected, the ID of which is passed in at render time*/}
     {/*It would be possible to read the current path from within the component during rendering, but this way all data is passed in through props.*/}
     <Route
-      
       path='/questions/:id'
       render={({ match }) => <QuestionDetail question_id={match.params.id} />}
     />
