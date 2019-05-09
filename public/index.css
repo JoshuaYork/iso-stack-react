@@ -24,3 +24,45 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.answered {
+  color: rgb(38, 133, 0);
+  font-weight: bold;
+  display: inline;
+}
+
+.unanswered {
+  color: red;
+  font-weight: bold;
+  display: inline;
+}
+
+.tag {
+  padding: .4em .5em;
+  text-align: center;
+  margin: 2px 2px 2px 0;
+  color: #39739d;
+  background-color: #e1ecf4;
+  border-color: #e1ecf4;
+  border-radius: 5px;
+}
+
+.stats {
+  display: flex;
+  float: none;
+  align-items: flex-start;
+  box-sizing: content-box;
+  padding: 0 8px 0 0;
+  flex-shrink: 0;
+}
+
+.stats_item {
+  display: inline-block;
+  margin: 0 3px 0 0;
+  padding: 7px 6px;
+}
+
+.list_item {
+  border-top: dashed;
+  border-width: 0.1em;
+}

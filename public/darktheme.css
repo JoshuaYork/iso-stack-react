@@ -1,21 +1,274 @@
-.main {
-    background-color: #044b00;
-    color: #ff9000
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans);
+
+::-moz-selection {
+    background: lightgreen;
 }
 
-/* ### begin colors in theme */
-/* 
-bground - 044b00
-text - ff9000
+::selection {
+    background: lightgreen;
+}
 
-cf00cf -purple
-078300 - lighter dark green
-70d36b - lighter still
+body {
+    background: #111;
+    font-family: 'Droid Sans', sans-serif;
+    font-size: 7pt;
+    color: #d8c99e;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: auto;
+}
 
-5d3500 - dark orange
-a25c00 lighter orange
-ffc881 lighter still
+.screen-border {
+    background: #272b2a;
+    width: 370px;
+    height: 290px;
+    margin: auto;
+    border-radius: 50px;
+    padding-top: 5%;
+    border-top: 10px solid #5a5f5b;
+    border-bottom: 5px solid #3a3e41;
+    position: relative;
+    z-index: -5;
+}
+
+.screen {
+    width: 300px;
+    height: 235px;
+    position: absolute;
+    margin-left: 26px;
+    border-radius: 20px;
+    background: #000;
+    border: 5px solid #333;
+    padding: 5px 5px 5px 0;
+    overflow: hidden;
+}
+
+.screen-reflection {
+    width: 285px;
+    height: 185px;
+    background: linear-gradient(150deg, #fff, rgba(0, 0, 0, 0));
+    position: relative;
+    z-index: 99;
+    opacity: 0.07;
+    margin: 9px 10px 10px 10px;
+    border-radius: 10px;
+}
+
+.scan {
+    width: 305px;
+    height: 80px;
+    background: linear-gradient(rgba(0, 0, 0, 0), #7ff12a);
+    position: absolute;
+    animation: scan;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    top: -85px;
+    z-index: 99;
+    opacity: 0.25;
+}
+
+nav {
+    height: 25px;
+    width: 90%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 1px solid #8df776;
+    padding-left: 10%;
+    border-top-right-radius: 20px;
+    z-index: 95;
+    border-top-left-radius: 20px;
+}
+
+nav span {
+    color: #8df776;
+    line-height: 31px;
+    font-size: 9pt;
+    letter-spacing: 0.3px;
+    margin-left: 14px;
+    font-weight: 300;
+}
+
+nav .active {
+    background: #000;
+    border-right: 1px solid #8df776;
+    border-left: 1px solid #8df776;
+    border-bottom: 1px solid #000;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    padding: 3px 6px 3px 6px;
+}
+
+nav p {
+    margin: -10px 0 0 0;
+    height: 25px;
+}
+
+nav .off {
+    color: #172f18;
+    position: relative;
+    left: -5px;
+}
 
 
-*/
-/* ### end colors in theme */
+
+.supplies {
+    height: 16px;
+    position: absolute;
+    bottom: 22px;
+    left: 13px;
+    background: #000;
+}
+
+.supplies span {
+    margin-right: 5px;
+    background: #78e461;
+    padding: 2px 3px 2px 3px;
+    color: #000;
+    font-weight: 700;
+}
+
+.hud-bar {
+    height: 12px;
+    position: absolute;
+    width: 290px;
+    bottom: 9px;
+    left: 15px;
+    background: #000;
+    color: #8df776;
+    z-index: 96;
+}
+
+.info-bar {
+    width: 170px;
+    height: 20px;
+    bottom: 50px;
+    left: 86px;
+    position: absolute;
+    z-index: 97;
+}
+
+.info-bar span {
+    background: rgba(0, 255, 0, 0.0.2);
+    padding: 3px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 7px;
+    color: #8df776;
+    text-align: center;
+    position: relative;
+}
+
+.info-bar span i {
+    position: absolute;
+    top: 0;
+    left: 5px;
+}
+
+.info-bar span p {
+    margin-top: 8px;
+}
+
+.hp {
+    display: inline-block;
+}
+
+.hp:before {
+    content: "HP 365/365";
+}
+
+.exp {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.exp:before {
+    content: "Level 48";
+}
+
+.exp:after {
+    content: "";
+    display: inline-block;
+    width: 99px;
+    height: 4px;
+    border: 1px solid lightgreen;
+    margin-left: 2px;
+}
+
+.ap {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.ap:before {
+    content: "AP 110/110";
+}
+
+.weapon {
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/184191/pipboy-gun2.png') no-repeat;
+    width: 23px;
+    height: auto;
+}
+
+.aim {
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/184191/pipboy-aim2.png')
+}
+
+.shield {
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/184191/pipboy-shield2.png')
+}
+
+.voltage {
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/184191/pipboy-voltage2.png');
+}
+
+.nuclear {
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/184191/pipboy-nuclear2.png')
+}
+
+.helmet {
+    background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/184191/pipboy-helmet2.png');
+}
+
+
+
+
+.top-right {
+    width: 140px;
+    height: 100px;
+    background: linear-gradient(#8b7663, #625245);
+    position: absolute;
+    top: -35px;
+    right: 5px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 40px;
+    border-top: 3px solid #c3bfb4;
+    z-index: -1;
+}
+
+@keyframes flicker {
+    0% {
+        box-shadow: 0px 0px 5px 0px red;
+    }
+
+    5% {
+        box-shadow: 0px 0px 30px 2px red;
+    }
+
+    60% {
+        box-shadow: 0px 0px 30px 2px red;
+    }
+
+    80% {
+        box-shadow: 0px 0px 10px 0px orange;
+    }
+
+    90% {
+        box-shadow: 0px 0px 30px 2px red;
+    }
+
+    100% {
+        box-shadow: 0px 0px 0px 0px red;
+    }
+}

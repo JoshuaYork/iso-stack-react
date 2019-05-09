@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TagsList from './TagsList';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -12,18 +12,30 @@ const QuestionListItem = ({
   tags,
   answer_count,
   title,
-  views,
-  question_id
+  view_count,
+  question_id,
+  page,
+  page_size,
+  is_answered,
+  score
 }) => (
-  <div className='mb-3'>
-    <h3><Markdown source={title} /></h3>
+  <div className='mb-3 list_item'>
+    <h3>
+      <Markdown source={title} />
+    </h3>
     <div className='mb-2'>
       <TagsList tags={tags} />
     </div>
+    <div className='stats'>
+      <div className= {is_answered ? 'stats_item answered' : 'stats_item'}>
+        answers {answer_count}{' '}
+      </div>
+      <div className='stats_item'>views {view_count}</div>
+      <div className='stats_item'>score {score}</div>
+    </div>
+
     <div>
-      <Link to={`/questions/${question_id}`}>
-        <button>More Info</button>
-      </Link>
+      <Link to={`/questions/${question_id}`}>More Info</Link>
     </div>
   </div>
 );
@@ -31,19 +43,28 @@ const QuestionListItem = ({
 /**
  * Display all questions in an array provided to it as a simple list
  */
-const QuestionList = ({ questions }) => (
-  <div>
-    {questions ? (
-      <div>
-        {questions.map(question => (
-          <QuestionListItem key={question.question_id} {...question} />
-        ))}
-      </div>
-    ) : (
-      <div>Loading questions...</div>
-    )}
-  </div>
-);
+const QuestionList = ({ questions }) => {
+  useEffect(() => {
+    window.onscroll = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        alert('end of page');
+      }
+    };
+  });
+  return (
+    <div>
+      {questions ? (
+        <div>
+          {questions.map(question => (
+            <QuestionListItem key={question.question_id} {...question} />
+          ))}
+        </div>
+      ) : (
+        <div>Loading questions...</div>
+      )}
+    </div>
+  );
+};
 
 /**
  * Get the list of questions from the application's state
