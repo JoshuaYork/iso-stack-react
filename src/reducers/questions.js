@@ -7,6 +7,8 @@ export const questions = (state = [], {
     type,
     question,
     questions,
+    page,
+    page_size
     
 }) => {
     /**

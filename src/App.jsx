@@ -27,6 +27,7 @@ const AppDisplay = () => (
       render={({ match }) => <QuestionDetail question_id={match.params.id} />}
     />
     <Route path='/tags/:tag' render={() => <QuestionList />} />
+    <Route path='/questions/page/:page' render={() => <QuestionList page={match.params.page}/>} />
   </div>
 );
 
