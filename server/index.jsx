@@ -114,7 +114,27 @@ function* getQuestions() {
    */
   return JSON.parse(data);
 }
+function* getPagedQuestions(page, pagesize) {
+  let data;
+  if (useLiveData) {
+    /**
+     * If live data is used, contact the external API
+     */
+    data = yield get(questions + `&page=${page}&pagesize=${pagesize}`, {
+      gzip: true
+    });
+  } else {
+    /**
+     * If live data is not used, read the mock questions file
+     */
+    data = yield fs.readFile('./data/mock-questions.json', 'utf-8');
+  }
 
+  /**
+   * Parse the data and return it
+   */
+  return JSON.parse(data);
+}
 function* getQuestion(question_id) {
   let data;
   if (useLiveData) {
@@ -179,7 +199,11 @@ function* getTaggedQuestions(tag) {
  * using the getQuestions utility
  */
 app.get('/api/questions', function*(req, res) {
-  const data = yield getQuestions();
+  let data = yield getQuestions();
+
+  if (req.query.page && req.query.pagesize) {
+    data = yield getPagedQuestions(req.query.page, req.query.pagesize);
+  }
   res.json(data);
 });
 
@@ -190,7 +214,6 @@ app.get('/api/questions/:id', function*(req, res) {
   const data = yield getQuestion(req.params.id);
   res.json(data);
 });
-
 /**
  * Get Answers for the question details
  */
@@ -272,7 +295,7 @@ app.get(['/', '/questions/:id', '/tags/:tag'], function*(req, res) {
     /**
      * Otherwise, we are on the "new questions view", so preload the state with all the new questions (not including their bodies or answers)
      */
-    const questions = yield getQuestions();
+    const questions = yield getPagedQuestions(1, 30);
     initialState.questions = [...questions.items];
   }
 
