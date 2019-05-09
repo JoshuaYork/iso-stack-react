@@ -11,6 +11,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import getStore from './getStore';
 import { createBrowserHistory } from 'history';
 import styles from '../public/index.css';
+import queryString from 'query-string';
 
 const history = createBrowserHistory();
 const store = getStore(history);
@@ -68,9 +69,24 @@ const fetchDataForLocation = location => {
   /**
    * If the location is the standard route, fetch an undetailed list of all questions
    **/
+
   if (location.pathname === '/') {
-    store.dispatch({ type: `REQUEST_FETCH_QUESTIONS` });
+    const parsedSearch = queryString.parse(location.search);
+    store.dispatch({
+      type: `REQUEST_FETCH_QUESTIONS_PAGED`,
+      page: !parsedSearch.page ? 1 : parsedSearch.page,
+      pagesize: !parsedSearch.pagesize ? 30 : parsedSearch.pagesize
+    });
   }
+
+  /*   if (location.pathname === '/questions') {
+    const parsedSearch = queryString.parse(location.search);
+    store.dispatch({
+      type: `REQUEST_FETCH_QUESTIONS_PAGED`,
+      page: !parsedSearch.page ? 1 : parsedSearch.page,
+      pagesize: !parsedSearch.pagesize ? 30 : parsedSearch.page
+    });
+  } */
 
   /**
    * If the location is the details route, fetch details for one question

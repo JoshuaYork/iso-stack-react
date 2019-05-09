@@ -13,6 +13,7 @@ import {
 import createSagaMiddleware from 'redux-saga';
 import fetchQuestionSaga from './sagas/fetch-question.saga';
 import fetchQuestionsSaga from './sagas/fetch-questions.saga';
+import fetchQuestionsPagedSaga from './sagas/fetch-questions-paged.saga';
 import fetchTaggedQuestionsSaga from './sagas/fetch-tagged-questions.saga';
 import fetchAnswers from './sagas/fetch-answers.saga';
 import * as reducers from './reducers';
@@ -62,6 +63,7 @@ export default function (history, defaultState = {}) {
      */
     sagaMiddleware.run(fetchQuestionSaga);
     sagaMiddleware.run(fetchQuestionsSaga);
+    sagaMiddleware.run(fetchQuestionsPagedSaga);
     sagaMiddleware.run(fetchTaggedQuestionsSaga);
     sagaMiddleware.run(fetchAnswers);
 
