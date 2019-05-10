@@ -27,7 +27,7 @@ const QuestionListItem = ({
       <TagsList tags={tags} />
     </div>
     <div className='stats'>
-      <div className= {is_answered ? 'stats_item answered' : 'stats_item'}>
+      <div className={is_answered ? 'stats_item answered' : 'stats_item'}>
         answers {answer_count}{' '}
       </div>
       <div className='stats_item'>views {view_count}</div>
@@ -44,13 +44,6 @@ const QuestionListItem = ({
  * Display all questions in an array provided to it as a simple list
  */
 const QuestionList = ({ questions }) => {
-  useEffect(() => {
-    window.onscroll = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        alert('end of page');
-      }
-    };
-  });
   return (
     <div>
       {questions ? (
