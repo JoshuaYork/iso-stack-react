@@ -28,6 +28,8 @@ function* handleFetchQuestionsPaged({
      */
     yield put({
         type: `FETCHED_QUESTIONS_PAGED`,
-        questions
+        questions,
+        page,
+        pagesize
     });
 }

@@ -16,9 +16,11 @@ export default function* () {
 }
 
 function* handleFetchQuestion({
-    tag
+    tag,
+    page,
+    pagesize
 }) {
-    const raw = yield fetch(`/api/tags/${tag}`);
+    const raw = yield fetch(`/api/tags/${tag}?page=${page}&pagesize=${pagesize}`);
     const json = yield raw.json();
     const questions = json.items;
     /**
@@ -26,6 +28,8 @@ function* handleFetchQuestion({
      */
     yield put({
         type: `FETCHED_TAGGED_QUESTIONS`,
-        questions
+        questions,
+        page,
+        pagesize
     });
 }

@@ -174,13 +174,13 @@ function* getAnswers(question_id) {
   return data;
 }
 
-function* getTaggedQuestions(tag) {
+function* getTaggedQuestions(tag, page, pagesize) {
   let data;
   if (useLiveData) {
     /**
      * If live data is used, contact the external API
      */
-    data = yield get(tagQuestions(tag), { gzip: true });
+    data = yield get(tagQuestions(tag) + `&page=${page}&pagesize=${pagesize}`, { gzip: true });
   } else {
     /**
      * If live data is not used, read the mock questions file
@@ -228,6 +228,11 @@ app.get('/api/questions/:id/answers', function*(req, res) {
  */
 app.get('/api/tags/:tag', function*(req, res) {
   const data = yield getTaggedQuestions(req.params.tag);
+  if (req.query.page && req.query.pagesize) {
+    data = yield getTaggedQuestions(req.params.tag, req.query.page, req.query.pagesize);
+  } else {
+    data 
+  }
   res.json(data);
 });
 
@@ -257,7 +262,9 @@ app.get(['/', '/questions/:id', '/tags/:tag'], function*(req, res) {
    */
   const initialState = {
     questions: [],
-    answers: []
+    answers: [],
+    page: 1,
+    pagesize: 30
   };
 
   /**
@@ -295,7 +302,10 @@ app.get(['/', '/questions/:id', '/tags/:tag'], function*(req, res) {
     /**
      * Otherwise, we are on the "new questions view", so preload the state with all the new questions (not including their bodies or answers)
      */
-    const questions = yield getPagedQuestions(1, 30);
+    const questions = yield getPagedQuestions(
+      initialState.page,
+      initialState.pagesize
+    );
     initialState.questions = [...questions.items];
   }
 
