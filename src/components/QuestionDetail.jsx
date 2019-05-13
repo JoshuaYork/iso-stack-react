@@ -9,11 +9,15 @@ import AnswersList from './AnswersList';
  * as its prop
  * If no question is found, that means the saga that is loading it has not completed, and display an interim message
  */
+const goodDate = date => {
+  return new Date(date * 1000).toLocaleDateString();
+};
 const QuestionDetailDisplay = ({
   title,
   body,
   answer_count,
   tags,
+  creation_date,
   question_id
 }) => (
   <div>
@@ -23,6 +27,7 @@ const QuestionDetailDisplay = ({
         <div className='mb-3'>
           <TagsList tags={tags} />
         </div>
+        <div>posted on {goodDate(creation_date)}</div>
         <Markdown className='question' source={body} />
         <h2>{answer_count} Answers</h2>
         <div>

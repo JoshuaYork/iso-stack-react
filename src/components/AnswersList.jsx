@@ -2,13 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Markdown from 'react-markdown';
 
+const goodDate = date => {
+  return new Date(date * 1000).toLocaleDateString();
+};
+
 const AnswerDisplay = ({ answer }) => (
   <div>
     {answer ? (
       <div className='answers'>
         <div>
           {answer.is_accepted ? 'Accepted ' : ' NOT Accepted '}
-          Score {answer.score}
+          Score {answer.score} posted on {goodDate(answer.creation_date)}
         </div>
 
         <Markdown source={answer.body} />
